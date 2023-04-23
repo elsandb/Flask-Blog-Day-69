@@ -1,5 +1,5 @@
 import os
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv
 from datetime import datetime as dt
 
 from flask import abort, Flask, render_template, redirect, url_for, flash, Markup
@@ -14,25 +14,21 @@ from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
 
+import config
 from forms import RegisterForm, CreatePostForm, LogInForm, CommentForm
 from safe_html import SafeHtml
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 
-load_dotenv(find_dotenv(".env"))
-
-# # APP SETUP
+# Setup
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['DEBUG'] = True
+app.config.from_object(config.Config)
 ckeditor = CKEditor(app)
 Bootstrap(app)
-
-# # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-# # CONFIGURE LOGIN_MANAGER
+# # Initialize LoginManager.
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -44,10 +40,11 @@ gravatar = Gravatar(app,
                     force_default=False,    # Build only default avatars (bool)
                     force_lower=False,      # Make email.lower() before build link
                     use_ssl=False,
-                    base_url=None)
+                    base_url=None
+                    )
 
 
-# # CONFIGURE TABLES
+# # Create tables
 class User(db.Model, UserMixin, AnonymousUserMixin):
     """
     User model.
