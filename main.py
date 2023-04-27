@@ -249,7 +249,6 @@ def show_post(post_id: int):
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for('show_post', post_id=post_id))
-
     # [GET]
     return render_template("post.html", post=requested_post, form=comment_form)
 
