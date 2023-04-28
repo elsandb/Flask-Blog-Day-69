@@ -15,6 +15,9 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
 
     # Database
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    if FLASK_DEBUG:
+        SQLALCHEMY_DATABASE_URI = "sqlite:///blog.db"
+    else:
+        SQLALCHEMY_DATABASE_URI = os.getenv("RENDER_DATABASE_URL")
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
