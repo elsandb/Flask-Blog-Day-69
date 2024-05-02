@@ -1,13 +1,11 @@
 # A Blog built with Flask
 
-(The branch "render" of this repo is deployed here https://elisabeth.onrender.com. It loads very slowly and I don't know if it's my fault, or if it's because I'm using render's free solution.)
-
 My solution on day 69 of "100 Days of Code: The Complete Python Pro Bootcamp for 2023", 
 a course made by Dr. Angela Yu. https://www.udemy.com/course/100-days-of-code/
 
 ---
 
-### Through this project I have gained some knowledge and experience with:
+### Through this project I have worked with:
 
 - Flask - a micro web framework written in Python.
 - SQLAlchemy, SQLite3 relational databases.
